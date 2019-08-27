@@ -6,13 +6,26 @@ socket.connect()
 
 let driving = false;
 
+const channel = socket.channel('room:lobby', {})
+
+channel.join()
+
+channel.on('new_card', state => {
+  // update UI with state.card
+  console.log(state)
+  showCard(state);
+})
+
+
 // connect to Presence here
 // set up your syncDiff function using updateUsers as a callback
 
-const startButton = document.querySelector('.start-button')
+const startButton = document.querySelector('.start-button');
 startButton.addEventListener('click', event => {
   driving = true;
+
   // send 'start_pointing' message to the channel here
+  channel.push('start_pointing', {});
 })
 
 document
