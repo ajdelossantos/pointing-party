@@ -15,8 +15,9 @@ defmodule PointingPartyWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(%{"username" => username}, socket, _connect_info) do
+    # %{"username" => username} = params
+    {:ok, assign(socket, :username, username)}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
@@ -29,5 +30,5 @@ defmodule PointingPartyWeb.UserSocket do
   #     PointingPartyWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
-  def id(_socket), do: nil
+  def id(socket), do: socket.assigns.username
 end
