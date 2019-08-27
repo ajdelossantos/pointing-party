@@ -5,6 +5,9 @@ defmodule PointingParty.Card do
 
   @pointing_scale [0, 1, 3, 5]
 
+  # Set JSON encoding
+  @derive {Jason.Encoder, except: [:__meta__, :__struct__]}
+
   schema "cards" do
     field :description, :string
     field :points, :integer

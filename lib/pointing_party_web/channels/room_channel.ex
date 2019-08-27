@@ -16,8 +16,16 @@ defmodule PointingPartyWeb.RoomChannel do
   end
 
   def handle_in("start_pointing", _params, socket) do
-    updated_socket = initialize_state(socket)
+    [first | cards] = Card.cards()
+
     # broadcast the "new_card" message with a payload of %{card: current_card}
+    updated_socket =
+      socket
+      |> assign(:unvoted, cards)
+      |> assign(:current, first)
+
+    current_card = updated_socket.assigns.current
+    broadcast!(updated_socket, "new_card", %{card: current_card})
 
     {:reply, :ok, updated_socket}
   end
