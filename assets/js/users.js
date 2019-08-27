@@ -5,7 +5,7 @@ const usersElem = document.querySelector('.users')
 const updateUsers = presence => {
   usersElem.innerHTML = ''
 
-  // let users = list presences with the help of a listBy function
+  const users = presence.list(listBy);
   users.forEach(addUser)
 
   // implement a feature that
@@ -17,6 +17,7 @@ const listBy = (username, {metas: [{points}, ..._rest]}) => {
   // build out the listBy function so that it returns a list of users
   // where each user looks like this:
   // {username: username, points: points}
+  return {username, points}
 }
 
 const showPoints = ({userId, points}) => {
@@ -36,4 +37,4 @@ const addUser = user => {
   usersElem.appendChild(estimateElem)
 }
 
-export default updateUsers
+export default updateUsers;

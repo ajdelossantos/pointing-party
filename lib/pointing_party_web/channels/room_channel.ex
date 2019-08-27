@@ -2,6 +2,8 @@ defmodule PointingPartyWeb.RoomChannel do
   use PointingPartyWeb, :channel
 
   alias PointingParty.Card
+  alias PointingPartyWeb.Presence
+
 
   def join("room:lobby", _payload, socket) do
     send(self(), :after_join)
@@ -11,6 +13,9 @@ defmodule PointingPartyWeb.RoomChannel do
 
   def handle_info(:after_join, socket) do
     # handle Presence listing and tracking here
+    push(socket, "presence_state", Presence.list(socket))
+    username = socket.assigns.username
+    {:ok, _} = Presence.track(socket, username, %{})
 
     {:noreply, socket}
   end

@@ -1,5 +1,5 @@
-import { Socket, Presence } from 'phoenix'
-import updateUsers  from './users'
+import { Socket, Presence } from 'phoenix';
+import updateUsers from './users'
 
 const socket = new Socket('/socket', {params: {username: window.pointingParty.username}})
 socket.connect()
@@ -16,9 +16,11 @@ channel.on('new_card', state => {
   showCard(state);
 })
 
-
 // connect to Presence here
+const presence = new Presence(channel)
+presence.onSync(() => updateUsers(presence))
 // set up your syncDiff function using updateUsers as a callback
+
 
 const startButton = document.querySelector('.start-button');
 startButton.addEventListener('click', event => {
