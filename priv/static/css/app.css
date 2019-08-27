@@ -142,5 +142,13 @@ body {
 header {
   background: #1e3456;
   color: #fdfdfd;
+  margin-bottom: 10rem;
+}
+
+.nav-link {
+  margin-top: 2rem;
+  border: 1px solid #fafafa;
+  border-radius: 1px;
+  background-color: #ddd;
 }
 
